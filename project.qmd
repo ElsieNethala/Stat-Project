@@ -5,3 +5,12 @@ authors: "Ema, Eileen, Elsie"
 format: pdf
 ---
 
+Initial setup:
+```{r}
+
+library(tidyverse)
+library(ggplot2)
+
+proj_data <- read.csv("sample_101_Life-Expectancy-Data-Updated.csv")
+
+```
