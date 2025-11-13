@@ -14,3 +14,25 @@ library(ggplot2)
 proj_data <- read.csv("sample_101_Life-Expectancy-Data-Updated.csv")
 
 ```
+
+Country: A list of 179 distinct countries included in the dataset.
+Region: Categorises the 179 countries into 9 geographical regions, such as Africa, Asia, Oceania, and the European Union.
+Year: The observed year, ranging from 2000 to 2015.
+Infant_deaths: Represents the number of infant deaths per 1,000 population.
+Under_five_deaths: Represents the number of deaths of children under five years old per 1,000 population.
+Adult_mortality: Represents the number of deaths of adults per 1,000 population.
+Alcohol_consumption: Records alcohol consumption in litres of pure alcohol per capita for individuals aged 15 years and over.
+Hepatitis_B: Represents the percentage of coverage for Hepatitis B (HepB3) immunisation among 1-year-olds.
+Measles: Represents the percentage of coverage for Measles containing vaccine first dose (MCV1) immunisation among 1-year-olds.
+BMI: Body Mass Index, a measure of nutritional status in adults (defined as a person's weight in kilograms divided by the square of that person's height in meters).
+Polio: Represents the percentage of coverage for Polio (Pol3) immunisation among 1-year-olds.
+Diphtheria: Represents the percentage of coverage for Diphtheria tetanus toxoid and pertussis (DTP3) immunisation among 1-year-olds.
+Incidents_HIV: Represents the incidents of HIV per 1,000 population aged 15-49.
+GDP_per_capita: Gross Domestic Product per capita in current US Dollars.
+Population_mln: Total population of a country in millions.
+Thinness_ten_nineteen_years: Prevalence of thinness among adolescents aged 10-19 years (specifically, BMI < -2 standard deviations below the median).
+Thinness_five_nine_years: Prevalence of thinness among children aged 5-9 years (specifically, BMI < -2 standard deviations below the median).
+Schooling: Average years individuals aged 25 and over have spent in formal education.
+Economy_status_Developed: A binary indicator (0 or 1) denoting whether a country is classified as 'Developed'.
+Economy_status_Developing: A binary indicator (0 or 1) denoting whether a country is classified as 'Developing'.
+Life_expectancy: The average life expectancy for both genders across different years, from 2000 to 2015.
