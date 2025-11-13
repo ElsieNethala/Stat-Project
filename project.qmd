@@ -1,5 +1,7 @@
 ---
 title: "Stat Project"
-format: html
+subtitle: ""
+authors: "Ema, Eileen, Elsie"
+format: pdf
 ---
 
