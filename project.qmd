@@ -7,12 +7,12 @@ format: pdf
 
 Initial setup:
 ```{r}
-
 library(tidyverse)
 library(ggplot2)
 
 proj_data <- read.csv("sample_101_Life-Expectancy-Data-Updated.csv")
-
+proj_data |>
+  mutate(Economy_status_Developed = as.factor(Economy_status_Developed))
 ```
 
 Country: A list of 179 distinct countries included in the dataset.
@@ -37,7 +37,20 @@ Economy_status_Developed: A binary indicator (0 or 1) denoting whether a country
 Economy_status_Developing: A binary indicator (0 or 1) denoting whether a country is classified as 'Developing'.
 Life_expectancy: The average life expectancy for both genders across different years, from 2000 to 2015.
 
+
 ```{r}
-m1 <- lm(Life_expectancy ~ Country + Region + Year + Infant_deaths + Under_five_deaths + Adult_mortality + Alcohol_consumption + Hepatitis_B + Measles + BMI + Polio + Diphtheria + Incidents_HIV + GDP_per_capita + Population_mln + Thinness_ten_nineteen_years + Thinness_five_nine_years + Schooling + Economy_status_Developed + Economy_status_Developing, data = proj_data) 
+m3 <- lm(Life_expectancy ~ Country + Economy_status_Developed, data = proj_data)
+summary(m3)
+```
+
+
+
+```{r}
+m1 <- lm(Life_expectancy ~ Year + Infant_deaths + Under_five_deaths + Adult_mortality + Alcohol_consumption + Hepatitis_B + Measles + BMI + Polio + Diphtheria + Incidents_HIV + GDP_per_capita + Population_mln + Thinness_ten_nineteen_years + Thinness_five_nine_years + Schooling + Economy_status_Developed, data = proj_data) 
 summary(m1)
+```
+
+```{r}
+m2 <- lm(Life_expectancy ~ Country + Year + Infant_deaths + Under_five_deaths + Adult_mortality + Alcohol_consumption + Hepatitis_B + Measles + BMI + Polio + Diphtheria + Incidents_HIV + GDP_per_capita + Population_mln + Thinness_ten_nineteen_years + Thinness_five_nine_years, data = proj_data) 
+summary(m2)
 ```
