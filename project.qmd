@@ -50,13 +50,28 @@ m1 <- lm(Life_expectancy ~ Year + Infant_deaths + Under_five_deaths + Adult_mort
 summary(m1)
 ```
 
-```{r}
 
-```
 
 ## Introduction
 
 ## Methodolody 
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+ggplot(data = proj_data, mapping = aes(x = m1$fitted.values, y = m1$residuals)) + 
+  geom_point() + 
+  labs(x = "Fitted values", y = "Residuals",
+       title = "Fitted Values vs Residuals") + 
+  geom_hline(yintercept = 0, color = "red") # add a horizontal red line at 0
+
+ggplot(data = proj_data, mapping = aes(x = m1$residuals)) + 
+  geom_histogram(color = "blue",
+                 fill = "blue") + 
+  labs(x = "Residuals", y = "Frequency",
+       title = "Histogram of Residuals")
+```
 
 ## Results
 
