@@ -25,6 +25,8 @@ proj_data |>
 ## Introduction
 HERE
 
+
+Dataset variables:
 Country: A list of 179 distinct countries included in the dataset.
 Region: Categorises the 179 countries into 9 geographical regions, such as Africa, Asia, Oceania, and the European Union.
 Year: The observed year, ranging from 2000 to 2015.
@@ -84,10 +86,12 @@ linear_regression <- tidy(m1) |>
   rename(
     Variable = term,
     Estimate = estimate,
-    P_value = p.value
-  )
+    P_value = p.value) |>
+  mutate(
+    Estimate = round(Estimate, 3),
+    P_value = round(P_value, 3))
+print(linear_regression)
 
-linear_regression
 ```
 
 ## Discussion
