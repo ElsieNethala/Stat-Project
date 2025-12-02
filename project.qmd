@@ -66,6 +66,27 @@ Year: The observed year, ranging from 2000 to 2015.
 3. Rationale
 The reason for this data analysis is that if helps identify which health and economic variables most strongly explain differences in life expectancy. It also helps shows how different diseases / vaccinations and child and adult mortality can contribute to the overall health of a nation. This data analysis can also help us make conclusions on what types of health policy can be recommended or suggested in order to target preventable health risks in certain countries.
 
+4. Exploratory Data Analysis
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+ggplot(data = proj_data, mapping = aes(x = Life_expectancy)) + 
+  geom_histogram() + labs(title = "Distribution of Life Expectancy", x = "Life Expectancy (years)", y = "Frequency")
+```
+
+```{r}
+ggplot(data = proj_data, mapping = aes(x = GDP_per_capita, y = Life_expectancy)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "GDP per Capita vs. Life Expectancy", x = "GDP per Capita", y = "Life Expectancy (years)")
+```
+
+```{r}
+ggplot(data = proj_data, mapping = aes(x = Adult_mortality, y = Life_expectancy)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Adult Mortality Rate vs. Life Expectancy", x = "Adult Mortality Rate", y = "Life Expectancy (years)")
+```
+The EDA helps us visualize some of the aspects of this dataset. It helps look at life expectancy as a whole across all the countries, and to help see if it is normally distributed. Additionally, the two scatter plots visually confirm whether economic indicators (GDP per capita) and health indicators (adult mortality) are strong predictors of life expectancy.
 
 ## Methodolody
 WORDS HERE
