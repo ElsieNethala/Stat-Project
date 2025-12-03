@@ -28,7 +28,7 @@ HERE
 
 Dataset variables:
 Country: A list of 179 distinct countries included in the dataset.
-Region: Categorises the 179 countries into 9 geographical regions, such as Africa, Asia, Oceania, and the European Union.
+Region: Categorizes the 179 countries into 9 geographical regions, such as Africa, Asia, Oceania, and the European Union.
 Year: The observed year, ranging from 2000 to 2015.
 Infant_deaths: Represents the number of infant deaths per 1,000 population.
 Under_five_deaths: Represents the number of deaths of children under five years old per 1,000 population.
@@ -52,6 +52,7 @@ Life_expectancy: The average life expectancy for both genders across different y
 ## Methodolody
 WORDS HERE
 
+Variable we removed:
 ```{r}
 m3 <- lm(Life_expectancy ~ Country + Economy_status_Developed, data = proj_data)
 summary(m3)
