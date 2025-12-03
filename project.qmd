@@ -16,6 +16,7 @@ Initial setup:
 ```{r}
 library(tidyverse)
 library(ggplot2)
+library(broom)
 
 proj_data <- read.csv("sample_101_Life-Expectancy-Data-Updated.csv") |>
   mutate(Economy_status_Developed = as.factor(Economy_status_Developed))
@@ -83,9 +84,6 @@ The reason for this data analysis is that if helps identify which health and eco
 
 4. Exploratory Data Analysis
 ```{r}
-library(tidyverse)
-library(ggplot2)
-
 ggplot(data = proj_data, mapping = aes(x = Life_expectancy)) + 
   geom_histogram() + labs(title = "Distribution of Life Expectancy", x = "Life Expectancy (years)", y = "Frequency")
 ```
@@ -109,8 +107,6 @@ WORDS HERE
 
 Assumptions:
 ```{r}
-library(tidyverse)
-library(ggplot2)
 m1 <- lm(Life_expectancy ~ Year + Infant_deaths + Under_five_deaths + Adult_mortality + Alcohol_consumption + Hepatitis_B + Measles + BMI + Polio + Diphtheria + Incidents_HIV + GDP_per_capita + Population_mln + Thinness_ten_nineteen_years + Thinness_five_nine_years + Schooling + Economy_status_Developed + Region, data = proj_data) 
 ggplot(data = proj_data, mapping = aes(x = m1$fitted.values, y = m1$residuals)) + 
   geom_point() + 
@@ -127,9 +123,6 @@ ggplot(data = proj_data, mapping = aes(x = m1$residuals)) +
 
 ## Results
 ```{r}
-m1 <- lm(Life_expectancy ~ Year + Infant_deaths + Under_five_deaths + Adult_mortality + Alcohol_consumption + Hepatitis_B + Measles + BMI + Polio + Diphtheria + Incidents_HIV + GDP_per_capita + Population_mln + Thinness_ten_nineteen_years + Thinness_five_nine_years + Schooling + Economy_status_Developed + Region, data = proj_data) 
-
-library(broom)
 linear_regression <- tidy(m1) |>
   select(term, estimate, p.value) |>
   rename(
