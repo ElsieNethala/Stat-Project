@@ -10,7 +10,6 @@ knitr:
     fig.width: 4
     fig.height: 3
 ---
-
 ```{r}
 library(tidyverse)
 library(ggplot2)
@@ -19,10 +18,9 @@ library(broom)
 proj_data <- read.csv("sample_101_Life-Expectancy-Data-Updated.csv") |>
   mutate(Economy_status_Developed = as.factor(Economy_status_Developed))
 ```
-
 ## Introduction
 
-Life expectancy is consistently regarded as one of the main indicators of the overall health of a population (Health Status | US EPA, 2025). A major part of evaluating life expectancy is understanding which factors have an association with it, and examining how life expectancy varies in relation to a range of social and health measures. Understanding what drives differences in life expectancy across countries is a central question in global health research. Life expectancy reflects the combined influence of economic development, healthcare access, disease burden, education, and demographic conditions, making it a powerful indicator of population well-being (Irandoust et al., 2025; Mondal & Shitan, 2013). Global life expectancy has increased steadily over the past several decades across the world, although large disparities persist between regions, income groups, and levels of healthcare access (Dattani et al., 2023). Public health research has consistently identified major determinants of life expectancy, including economic development, education, infectious disease burden, vaccination coverage, nutrition, and child and adult mortality rates as key contributors to differences in population survival (Irandoust et al., 2025). Understanding how these determinants vary across countries and over time is important for informing conversations about where improvements in health systems might be prioritized.
+Life expectancy is consistently regarded as one of the main indicators of the overall health of a population (Health Status | US EPA, 2025). Life expectancy reflects the combined influence of economic development, healthcare access, disease burden, education, and demographic conditions, making it a powerful indicator of population well-being (Irandoust et al., 2025; Mondal & Shitan, 2013). A major part of evaluating life expectancy is understanding which factors have an association with it, and examining how life expectancy varies in relation to a range of social and health measures. Understanding what drives differences in life expectancy across countries is a central question in global health research. Global life expectancy has increased steadily over the past several decades across the world, although large disparities persist between regions, income groups, and levels of healthcare access (Dattani et al., 2023). Public health research has consistently identified major determinants of life expectancy, including economic development, education, infectious disease burden, vaccination coverage, nutrition, and child and adult mortality rates as key contributors to differences in population survival (Irandoust et al., 2025). Understanding how these determinants vary across countries and over time is important for informing conversations about where improvements in health systems might be prioritized.
 
 Previous research, including a study published in by Daniel et al. (2018), have emphasized that addressing social determinants can play a role in improving patient care. Additionally, there is a "15-year difference in life expectancy between the most advantaged and disadvantaged citizens"(Daniel et al., 2018). Based on this existing information, we chose a dataset that explores a similar line of variables that have been shown to be strongly associated with with life expectancy.
 
@@ -40,7 +38,7 @@ Life_expectancy: The average life expectancy for both genders across different y
 
 **Predictor Variables:**
 
-Economic and Demographic--
+Economic and Demographic --
 
   1. GDP_per_capita: Gross Domestic Product per capita in current US Dollars.
   2. Population_mln: Total population of a country in millions. 
@@ -66,7 +64,7 @@ Mortality and Disease --
   16. Diphtheria: Represents the percentage of coverage for Diphtheria tetanus toxoid and pertussis (DTP3) immunization among   1-year-olds.
   17. Incidents_HIV: Represents the incidents of HIV per 1,000 population aged 15-49.
 
-Observational Units-- 
+Observational Units -- 
 
   18. Country: A list of 179 distinct countries included in the dataset.
   19. Region: Categorizes the 179 countries into 9 geographical regions, such as Africa, Asia, Oceania, and the European Union.
@@ -80,42 +78,45 @@ III. Exploratory Data Analysis
 ```{r}
 ggplot(data = proj_data, mapping = aes(x = Life_expectancy)) + 
   geom_histogram(color = "blue",
-                 fill = "blue") + labs(title = "Distribution of Life Expectancy", x = "Life Expectancy (years)", y = "Frequency")
-
+                 fill = "blue") + 
+  labs(title = "Distribution of Life Expectancy", 
+       x = "Life Expectancy (years)", 
+       y = "Frequency") +
+  theme_bw()
+```
+**Figure 1.** Distribution of Life Expectancy
+```{r}
 ggplot(data = proj_data, mapping = aes(x = GDP_per_capita, y = Life_expectancy)) +
   geom_point(alpha = 0.5, color = "blue") +
-  labs(title = "GDP per Capita vs. Life Expectancy", x = "GDP per Capita", y = "Life Expectancy (years)")
-
+  labs(title = "GDP per Capita vs. Life Expectancy", 
+       x = "GDP per Capita", 
+       y = "Life Expectancy (years)") + 
+  theme_bw()
+```
+**Figure 2.** GDP per Capita vs. Life Expectancy
+```{r}
 ggplot(data = proj_data, mapping = aes(x = Adult_mortality, y = Life_expectancy)) +
   geom_point(alpha = 0.5, color = "blue") +
-  labs(title = "Adult Mortality Rate vs. Life Expectancy", x = "Adult Mortality Rate", y = "Life Expectancy (years)")
+  labs(title = "Adult Mortality Rate vs. Life Expectancy", 
+       x = "Adult Mortality Rate", 
+       y = "Life Expectancy (years)") +
+  theme_bw()
 ```
-The EDA helps us visualize some of the aspects of this dataset. It helps look at life expectancy as a whole across all the countries, and to help see if it is normally distributed. Additionally, the two scatter plots visually confirm whether economic indicators (GDP per capita) and health indicators (adult mortality) are strong predictors of life expectancy.
+**Figure 3.** Adult Mortality Rate vs. Life Expectancy
+
+The EDA helps us visualize some of the aspects of this dataset. It helps look at life expectancy as a whole across all the countries, and to help see if it is normally distributed or left skewed. The scatterplots provide an initial look at how life expectancy varies with GDP per capita and adult mortality, suggesting potential associations between economic and health indicators and life expectancy that we investigate more formally in the regression analysis. Additional exploratory figures, including visualizations of BMI and other predictors, are provided in the appendix for completeness. Additional exploratory figures, including visualizations of BMI and other predictors, are provided in Appendix A for completeness.
 
 ## Methodology
 The goal of this analysis was to identify how the different variables in the dataset impacted life expectancy across different countries and years. We selected a linear regression model over other models because the outcome variable (life expectancy) is continuous and the research question focuses on estimating relationships between predictors and mean life expectancy, while holding other variables constant. A multiple linear regression is appropriate for this dataset because the outcome is continuous, the predictors are a mix of numerical and categorical variables, and the goal is to estimate how each variable relates to life expectancy. Other methods such as logistic regression, ANOVA, and t-tests, were not appropriate here because they are designed for categorical outcomes or for comparing a small number of group means. Our dataset includes a continuous response and many quantitative predictors, so linear regression is the best and most efficient method that fits our research question.
 
 For replication, the linear regression uses the equation shown below as a guide, with life expectancy as the output, and the other variables as its predictors. When replicated, it should be ensured the data is loaded into R, and that when inputting this model into R with the lm() function, that life expectancy is the output, and that all other variables are quantitative except Economy Status Developed and Region, which are factors and therefore dummy variables in this linear regression. Results are shown using the summary() function. P-values and slopes were assessed for the goals of this project.
 
-The residual plot is symmetrically distributed around the horizontal axis, showing that our data satisfied the assumption of linearity. The residuals appear to be roughly vertically evenly spaced along the y axis, satisfying the assumption of constant variance of the errors. The histogram of the residuals also appears to be roughly symmetrical, satisfying the assumption of a normal distribution of errors. Finally, for independence in this dataset, each row represents a specific country in a specific year. Since each country operates independently with its own health system, economy, and demographic conditions, it makes sense to assume that the error for one observation doesn’t directly affect the error for another. Because the same country can appear multiple times (for different years), it's possible that a country’s values might be somewhat related over time. However, the model treats each country-year as its own observation, and we also included variables like Region and Economy Status, which already help capture similarities between countries that might otherwise create dependence. Because of this, even though small within-country patterns over time could exist, assuming that the errors are independent overall is still a reasonable and practical assumption for this analysis. Plots for the assumptions are shown below:
-```{r}
-m1 <- lm(Life_expectancy ~ Year + Infant_deaths + Under_five_deaths + Adult_mortality + Alcohol_consumption + Hepatitis_B + Measles + BMI + Polio + Diphtheria + Incidents_HIV + GDP_per_capita + Population_mln + Thinness_ten_nineteen_years + Thinness_five_nine_years + Schooling + Economy_status_Developed + Region, data = proj_data) 
-ggplot(data = proj_data, mapping = aes(x = m1$fitted.values, y = m1$residuals)) + 
-  geom_point() + 
-  labs(x = "Fitted values", y = "Residuals",
-       title = "Fitted Values vs Residuals") + 
-  geom_hline(yintercept = 0, color = "red") # add a horizontal red line at 0
-
-ggplot(data = proj_data, mapping = aes(x = m1$residuals)) + 
-  geom_histogram(color = "blue",
-                 fill = "blue") + 
-  labs(x = "Residuals", y = "Frequency",
-       title = "Histogram of Residuals")
-```
+The residual plot is symmetrically distributed around the horizontal axis, showing that our data satisfied the assumption of linearity. The residuals appear to be roughly vertically evenly spaced along the y axis, satisfying the assumption of constant variance of the errors. The histogram of the residuals also appears to be roughly symmetrical, satisfying the assumption of a normal distribution of errors. Finally, for independence in this dataset, each row represents a specific country in a specific year. Since each country operates independently with its own health system, economy, and demographic conditions, it makes sense to assume that the error for one observation doesn’t directly affect the error for another. Because the same country can appear multiple times (for different years), it's possible that a country’s values might be somewhat related over time. However, the model treats each country-year as its own observation, and we also included variables like Region and Economy Status, which already help capture similarities between countries that might otherwise create dependence. Because of this, even though small within-country patterns over time could exist, assuming that the errors are independent overall is still a reasonable and practical assumption for this analysis. Plots for the assumptions are shown in Appendix B. 
 
 ## Results
-Linear regression of life expectancy and its predictors:
 ```{r}
+m1 <- lm(Life_expectancy ~ Year + Infant_deaths + Under_five_deaths + Adult_mortality + Alcohol_consumption + Hepatitis_B + Measles + BMI + Polio + Diphtheria + Incidents_HIV + GDP_per_capita + Population_mln + Thinness_ten_nineteen_years + Thinness_five_nine_years + Schooling + Economy_status_Developed + Region, data = proj_data) 
+
 linear_regression <- tidy(m1) |>
   select(term, estimate, p.value) |>
   rename(
@@ -127,6 +128,7 @@ linear_regression <- tidy(m1) |>
     P_value = round(P_value, 3))
 print(linear_regression, n = Inf)
 ```
+**Table 1.** Linear regression output for life expectancy and its predictors
 
 Results were analyzed with emphasis on the p-values resulting from the T tests that were run on each individual variable, while holding others constant. The null hypothesis for each variable was that the slope, or beta, was equal to 0. The alternative hypothesis is that the slope/beta is not equal to 0. Each T test had a T distribution under the null hypothesis with 1 degree of freedom. These p values were analyzed with a significance value of alpha equals .05. The variables where the null hypothesis was rejected and we had enough evidence, based on the data sourced from Kaggle, to say that there is a relationship between said variable and life expectancy are as follows: Year, Infant_deaths, Adult_mortality, BMI, Thinness_ten_nineteen_years, Thinness_five_nine_years, Economy_status_Developed1, RegionAsia, RegionCentral America and Caribbean, and RegionSouth America. 
 
@@ -154,3 +156,47 @@ Life Expectancy & Socio-Economic Determinants Dataset CSV download free | Open D
 Mondal, M. N. I., & Shitan, M. (2013). Relative importance of demographic, socioeconomic and health factors on life expectancy in low- and Lower-Middle-Income countries. Journal of Epidemiology, 24(2), 117–124. https://doi.org/10.2188/jea.je20130059
 
 Healthy People 2030, U.S. Department of Health and Human Services, Office of Disease Prevention and Health Promotion. Retrieved [2025, December 2], from https://health.gov/healthypeople/objectives-and-data/social-determinants-health
+
+## Appendix A
+```{r}
+ggplot(data = proj_data, mapping = aes(x = Region, y = Life_expectancy)) +
+  geom_boxplot() +
+  labs(title = "Life Expectancy by Region",
+       x = "Region",
+       y = "Life Expectancy (years)") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+**Figure 4.** Life Expectancy by Region
+
+```{r}
+ggplot(data = proj_data, mapping = aes(x = BMI, y = Life_expectancy)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  labs(title = "BMI vs. Life Expectancy", 
+       x = "BMI", 
+       y = "Life Expectancy (years)") +
+  theme_bw()
+``` 
+**Figure 5.** BMI vs. Life Expectancy
+
+## Appendix B
+
+```{r}
+ggplot(data = proj_data, mapping = aes(x = m1$fitted.values, y = m1$residuals)) + 
+  geom_point() + 
+  labs(x = "Fitted values", y = "Residuals",
+       title = "Fitted Values vs Residuals") + 
+  theme_bw() +
+  geom_hline(yintercept = 0, color = "red") # add a horizontal red line at 0 
+```
+**Figure 6.** Residual plot
+```{r}
+ggplot(data = proj_data, mapping = aes(x = m1$residuals)) + 
+  geom_histogram(color = "blue",
+                 fill = "blue") + 
+  labs(x = "Residuals", 
+       y = "Frequency",
+       title = "Histogram of Residuals") +
+  theme_bw()
+```
+**Figure 7.** Histogram of residuals
