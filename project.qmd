@@ -70,7 +70,7 @@ Observational Units --
 
 II. Rationale
 
-The reason for this data analysis is that if helps identify which health and economic variables are most strongly associated with differences in life expectancy. It also helps shows how different diseases / vaccinations and child and adult mortality can contribute to the overall health of a nation. This data analysis can also help us make conclusions on what types of health policy can be recommended or suggested in order to target preventable health risks in certain countries. This analysis contributes to existing work by examining multiple determinants simultaneously in a harmonized, multi-country dataset, allowing us to evaluate which predictors remain associated with life expectancy after accounting for other factors.
+The reason for this data analysis is that if helps identify which health and economic variables are most strongly associated with differences in life expectancy. It also helps shows how different diseases / vaccinations and child and adult mortality can contribute to the overall health of a nation. This data analysis can also help us make conclusions on what types of health policy can be recommended or suggested in order to target preventable health risks in certain countries. This analysis contributes to existing work by examining multiple determinants simultaneously, allowing us to evaluate which predictors remain associated with life expectancy after accounting for other factors.
 
 III. Exploratory Data Analysis
 ```{r}
